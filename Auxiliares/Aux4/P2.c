@@ -11,7 +11,7 @@ typedef struct {
     Nodo *ultimo;
 } Cola;
 
-Cola *crearcola() {
+Cola *crearCola() {
     Cola *retcola = malloc(sizeof(Cola));
     retcola->primero = NULL;
     retcola->ultimo = NULL;
@@ -31,8 +31,30 @@ void put(Cola* q, char *str) {
     penultimo->sgte = porEntrar;
     q->ultimo = porEntrar;
 };
-char *get(Cola* p);
-void freeCola(Cola *q);
+
+char *get(Cola* q) {
+    if(q->primero == NULL) {
+        printf("No puedes sacar elementos!\n");
+        return NULL;
+    }
+    Nodo temp = *(q->primero);
+    free(q->primero);
+    q->primero = temp.sgte;
+    if (q->primero == NULL) {
+        q->ultimo = NULL;
+    }
+    return temp.info;
+};
+
+void freeCola(Cola *q) {
+    Nodo *p = q->primero;
+    while(p != NULL) {
+        Nodo *ps = p->sgte;
+        free(p);
+        p = ps;
+    }
+    free(q);
+};
 
 int main () {
     Cola *q = crearCola();
@@ -41,5 +63,6 @@ int main () {
     char b[] = "qtal";
     put(q,b);
 
-    printf("%s\n",)
+    printf("%s\n", get(q));
+    printf("%s\n", get(q));
 };
