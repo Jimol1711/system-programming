@@ -18,7 +18,19 @@ Cola *crearcola() {
     return retcola;
 };
 
-void put(Cola* q, char *str);
+void put(Cola* q, char *str) {
+    Nodo *porEntrar = malloc(sizeof(Nodo));
+    porEntrar->info = str;
+    porEntrar->sgte = NULL;
+    if (q->primero == NULL) {
+        q->primero = porEntrar;
+        q->ultimo = porEntrar;
+        return;
+    }
+    Nodo *penultimo = q->ultimo;
+    penultimo->sgte = porEntrar;
+    q->ultimo = porEntrar;
+};
 char *get(Cola* p);
 void freeCola(Cola *q);
 
