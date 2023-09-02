@@ -14,7 +14,6 @@ void eliminar(char *str, char *pat) {
     char *caracter_pat = pat + j;
     }
   while(caracter_str == caracter_pat){
-      str -= i;
     }
     
   
