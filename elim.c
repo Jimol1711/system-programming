@@ -32,7 +32,7 @@ char *eliminados(char *str, char *pat) {
     int largo_resultante = 0;
     const char* str_ptr = str;
     
-    // Calulamos largo del string resultante
+    // Calulamos largo del string resultante, es básicamente lo mismo que eliminar pero solo cuenta el número de caracteres que debería tener el string final
     while (*str_ptr) {
         const char* temp = pat;
         int coincidencia = 1;
@@ -49,12 +49,12 @@ char *eliminados(char *str, char *pat) {
         }
     }
     
-    // Se crea variable dinámica para el string resultante, hago casteo para que no haya conflicto
-    char* result = (char*)malloc(largo_resultante + 1);
+    // Se crea variable dinámica para el string resultante
+    char* result = malloc(largo_resultante + 1);
     
     // Se copia el string a la variable dinámica
     char* dest = result;
-    str_ptr = str;
+    str_ptr = str; // Acá creo otro puntero para evitar modificar el string original
     while (*str_ptr) {
         char* temp = pat;
         int coincidencia = 1;
@@ -72,5 +72,5 @@ char *eliminados(char *str, char *pat) {
         }
     } 
     *dest = '\0';
-    return result;
+    return result; // Se devuelve el nuevo string almacenado en la variable dinámica
 }
