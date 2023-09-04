@@ -87,10 +87,16 @@ char *eliminados(char *str, char *pat) {
 
     return result;
 #endif
-    char copia_str[strlen(str)+1];
+    char *copia_str = malloc(strlen(str)+1);
     strcpy(copia_str,str);
+
     eliminar(copia_str,pat);
+
     char *nuevo_str = malloc(strlen(copia_str)+1);
-    *nuevo_str = *copia_str;
+    strcpy(nuevo_str,copia_str);
+    
     return nuevo_str;
+
+    free(copia_str);
+    free(nuevo_str);
 }
