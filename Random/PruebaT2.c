@@ -103,10 +103,12 @@ int main() {
     char pat1[] = "b";
 
     printf("String original: %s\n", str1);
+    printf("%d\n",strlen(str1));
 
     eliminar(str1, pat1);
 
     printf("String después de eliminar '%s': %s\n", pat1, str1);
+    printf("%d\n",strlen(str1));
 
 #if 0
     char str2[] = "This is a test string with test pattern.";
