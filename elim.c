@@ -29,7 +29,8 @@ void eliminar(char *str, char *pat) {
 char *eliminados(char *str, char *pat) {
 #if 1
     char *dest = str;
-    char *temp;  
+    char *temp; 
+
     int contador = 0; // Se cuenta el número de veces que aparece el patrón   
     while (*str) {
         temp = pat;
@@ -41,17 +42,9 @@ char *eliminados(char *str, char *pat) {
             contador += 1;
         }
     }
+
+    char *nuevo_string = malloc(strlen(str)-(contador*strlen(pat))+1);
+
+    
 #endif
-    char *copia_str = malloc(strlen(str)+1);
-    strcpy(copia_str,str);
-
-    eliminar(copia_str,pat);
-
-    char *nuevo_str = malloc(strlen(copia_str)+1);
-    strcpy(nuevo_str,copia_str);
-
-    return nuevo_str;
-
-    free(copia_str);
-    free(nuevo_str);
 }
