@@ -5,10 +5,6 @@
 #include "elim.h"
 
 void eliminar(char *str, char *pat) {
-  if (str == NULL || pat == NULL) {
-        return;  // Verificar si los punteros son válidos
-    }
-
     char *dest = str; // Puntero de destino para eliminar 'pat'
     char *temp;       // Puntero temporal para buscar 'pat'
 
@@ -37,7 +33,7 @@ void eliminar(char *str, char *pat) {
 }
 
 char *eliminados(char *str, char *pat) {
-#if 0
+#if 1
   if (str == NULL || pat == NULL) {
         return 0;  // Verificar si los punteros son válidos
     }
@@ -108,7 +104,6 @@ char *eliminados(char *str, char *pat) {
     // Copiar el resultado de vuelta a 'str'
     strcpy(str, result);
 
-    return str;
+    return result;
 #endif
-    return 0;
 }

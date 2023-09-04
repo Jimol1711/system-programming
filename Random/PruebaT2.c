@@ -3,10 +3,6 @@
 #include <string.h>
 
 void eliminar(char *str, char *pat) {
-  if (str == NULL || pat == NULL) {
-        return;  // Verificar si los punteros son válidos
-    }
-
     char *dest = str; // Puntero de destino para eliminar 'pat'
     char *temp;       // Puntero temporal para buscar 'pat'
 
@@ -34,11 +30,8 @@ void eliminar(char *str, char *pat) {
     *dest = '\0';
 }
 
+#if 1
 void eliminados(char *str, char *pat) {
-    if (str == NULL || pat == NULL) {
-        return;  // Verificar si los punteros son válidos
-    }
-
     // Variables para contar la longitud del resultado
     int result_length = 0;
     char *temp = str;
@@ -108,11 +101,12 @@ void eliminados(char *str, char *pat) {
     // Liberar la memoria dinámica
     free(result);
 }
+#endif
 
 int main() {
 
-    char str1[] = "Esto es una prueba de patpatpat eliminación.";
-    char pat1[] = "pat";
+    char str1[] = "aaaaaaaaaaaaaaaaaaaaaaaaab";
+    char pat1[] = "a";
 
     printf("String original: %s\n", str1);
 
@@ -120,6 +114,7 @@ int main() {
 
     printf("String después de eliminar '%s': %s\n", pat1, str1);
 
+#if 0
     char str2[] = "This is a test string with test pattern.";
     char pat2[] = "test";
 
@@ -128,4 +123,5 @@ int main() {
     printf("Resultado: %s\n", str2);
 
     return 0;
+#endif
 }
