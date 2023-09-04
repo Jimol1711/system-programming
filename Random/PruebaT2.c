@@ -99,8 +99,8 @@ void eliminados(char *str, char *pat) {
 
 int main() {
 
-    char str1[] = "aaaaaaaaaaaaaaaaaaaaaaaawenaaaaaaaaaaaaaaaawencbrosaaaaaaaaaaaaaaaaaaaaholquetlaaaaaaaaaaaaaaaaaaaaaaaaa";
-    char pat1[] = "a";
+    char str1[] = "aaaaaabaaaaabaaaaa";
+    char pat1[] = "b";
 
     printf("String original: %s\n", str1);
 

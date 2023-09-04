@@ -87,5 +87,8 @@ char *eliminados(char *str, char *pat) {
 
     return result;
 #endif
-    return str;
+    eliminar(str,pat);
+    char *nuevo_str = malloc(strlen(str)+1);
+    nuevo_str = str;
+    return nuevo_str;
 }
