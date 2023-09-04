@@ -95,27 +95,24 @@ int eliminados(char *str, char *pat) {
     // Liberar la memoria dinámica
     free(result);
 #endif
-
-    char *dest = str;
-    char *temp; 
-    int coincidencia = 1;
-    int contador = 0; // Se cuenta el número de veces que aparece el patrón   
+    char *temp;  
+    int contador = 0;     
     while (*str) {
         temp = pat;
+        int coincidencia = 1;
         while (*str == *temp && *temp != '\0') {
             str++;
             temp++;
         }
         if (*temp == '\0') {
-            contador += 1;
             coincidencia = 0;
+            contador += 1;
         }
         if (coincidencia) {
-            dest++;
             str++;
         }
-        str++;
     }
+    //*dest = '\0';
     printf("%d\n",contador);
     return 0;
 }
@@ -123,7 +120,7 @@ int eliminados(char *str, char *pat) {
 int main() {
 
     char str1[] = "hhhhhhh";
-    char pat1[] = "";
+    char pat1[] = "h";
 
     printf("String original: %s\n", str1);
     printf("%d\n",strlen(str1));
@@ -133,7 +130,7 @@ int main() {
     printf("String después de eliminar '%s': %s\n", pat1, str1);
     printf("%d\n",strlen(str1));
 
-    eliminados("hhhhhhh","");
+    eliminados("oaoaoaoaoaoaoaoa","o");
 
 #if 0
     char str2[] = "This is a test string with test pattern.";
