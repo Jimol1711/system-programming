@@ -9,22 +9,25 @@ void eliminar(char *str, char *pat) {
     char *temp;       
     while (*str) {
         temp = pat;
+        int coincidencia = 1;
         while (*str == *temp && *temp != '\0') {
             str++;
             temp++;
         }
         if (*temp == '\0') {
-            continue;
+            coincidencia = 0;
         }
-        *dest = *str;
-        dest++;
-        str++;
+        if (coincidencia) {
+            *dest = *str;
+            dest++;
+            str++;
+        }
     }
     *dest = '\0';
 }
 
 char *eliminados(char *str, char *pat) {
-#if 1
+#if 0
     // Variables para contar la longitud del resultado
     int result_length = 0;
     char *temp = str;
@@ -84,4 +87,5 @@ char *eliminados(char *str, char *pat) {
 
     return result;
 #endif
+    return str;
 }

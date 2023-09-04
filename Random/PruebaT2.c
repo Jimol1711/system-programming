@@ -3,25 +3,24 @@
 #include <string.h>
 
 void eliminar(char *str, char *pat) {
-    char *dest = str; // Puntero de destino para eliminar 'pat'
-    char *temp;       // Puntero temporal para buscar 'pat'
+    char *dest = str;
+    char *temp;       
     while (*str) {
         temp = pat;
-        // Comprobar si se encuentra 'pat' a partir de la posición actual de 'str'
+        int coincidencia = 1;
         while (*str == *temp && *temp != '\0') {
             str++;
             temp++;
         }
-        // Si 'temp' llegó al final de 'pat', hemos encontrado una coincidencia
         if (*temp == '\0') {
-            continue;
+            coincidencia = 0;
         }
-        // Si no hay coincidencia, copiar el carácter a 'dest'
-        *dest = *str;
-        dest++;
-        str++;
+        if (coincidencia) {
+            *dest = *str;
+            dest++;
+            str++;
+        }
     }
-    // Agregar un carácter nulo al final para marcar el nuevo final de 'str'
     *dest = '\0';
 }
 
@@ -100,7 +99,7 @@ void eliminados(char *str, char *pat) {
 
 int main() {
 
-    char str1[] = "aaaaaajshdadajhwjdaj";
+    char str1[] = "aaaaaaaaaaaaaaaaaaaaaaaawenaaaaaaaaaaaaaaaawencbrosaaaaaaaaaaaaaaaaaaaaholquetlaaaaaaaaaaaaaaaaaaaaaaaaa";
     char pat1[] = "a";
 
     printf("String original: %s\n", str1);
