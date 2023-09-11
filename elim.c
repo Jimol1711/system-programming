@@ -6,22 +6,6 @@
 
 void eliminar(char *str, char *pat) {
 #if 0
-    char *dest = str;
-    size_t patLen = strlen(pat);
-
-    while (*str) {
-        if (strncmp(str, pat, patLen) == 0) {
-            str += patLen; // Saltar el patrón en str
-        } else {
-            *dest = *str;
-            dest++;
-            str++;
-        }
-    }
-
-    *dest = '\0';
-#endif
-#if 1
     // Se crea un puntero de destino para ir sobreescribiendo el string y uno temporal para recorrer el patrón
     char *dest = str;
     while (*str) {
@@ -58,6 +42,7 @@ void eliminar(char *str, char *pat) {
 }
 
 char *eliminados(char *str, char *pat) {
+#if 0
     int contador = 0;
     char *strcontar = str;
     while (*strcontar) {
@@ -85,6 +70,10 @@ char *eliminados(char *str, char *pat) {
         strcontar++;
     }
 
+    // Creamos la variable dinámica
+    char *str_copia = malloc(strlen(str)-(contador*strlen(pat))+1);
+#endif
+#if 0
     // Variable dinámica con malloc
     char *str_nuevo = malloc(strlen(str)-(contador*strlen(pat))+1);
     char *str_nuevo_nuevo = str_nuevo;
@@ -122,6 +111,7 @@ char *eliminados(char *str, char *pat) {
     *str_nuevo_nuevo= '\0';
     
     return str_nuevo;
+#endif
 #if 0
     int largo = 0;
     char *dest = str;
@@ -237,5 +227,69 @@ char *eliminados(char *str, char *pat) {
 
     return str_copy2;
 #endif
+#if 1
+    // Se asignan punteros y se llama a variable dinámica con malloc
+    char *str_ptr = str;
+    char *copia_str = malloc(strlen(str)+1);
+    char *copia_str_ptr = copia_str;
+    char *copia_str2 = copia_str;
 
+    // Se copia manualmente el string
+    for (int i=0; i < strlen(str)+1; i++) {
+        *copia_str_ptr = *str_ptr;
+        copia_str_ptr++;
+        str_ptr++;
+    };
+
+    // Copio eliminar con el nuevo puntero
+    // Se crea un puntero de destino para ir sobreescribiendo el string y uno temporal para recorrer el patrón
+    char *dest = copia_str2;
+    while (*copia_str2) {
+        // Si los caracteres coinciden, avanzamos en ambos strings
+        if (*copia_str2 == *pat) {
+            char *temp_str = copia_str2;
+            char *temp_pat = pat;
+            int coincidencia = 1;
+            
+            // Comparamos los caracteres de str y pat hasta que pat llegue a su fin
+            while (*temp_pat != '\0') {
+                if (*temp_str != *temp_pat) { 
+                    coincidencia = 0;
+                    break;
+                }
+                temp_str++;
+                temp_pat++;
+            }
+            
+            // Si hay coincidencia, avanzamos el puntero en str
+            if (coincidencia) {
+                copia_str2 = temp_str;
+            }
+        }
+        
+        // Copiamos el caracter actual de str al destino y avanzamos los punteros
+        *dest = *copia_str2;
+        dest++;
+        copia_str2++;
+    }
+    
+    *dest = '\0';
+
+    //Se crean más punteros y se copia manualmente
+    char *copia_str_ptr_elim = copia_str;
+    char *copia_str_ptr_final = malloc(strlen(copia_str)+1);
+    char *copia_str_ptr_final2 = copia_str_ptr_final;
+
+    for (int i=0; i < strlen(copia_str)+1; i++) {
+        *copia_str_ptr_final2 = *copia_str_ptr_elim;
+        copia_str_ptr_final2++;
+        copia_str_ptr_elim++;
+    };
+
+    //Se llama a free para el primer malloc
+    free(copia_str);
+
+    //Se retorna el string
+    return copia_str_ptr_final;
+#endif
 }
