@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <string.h>
+
+#include "sumar-str.h"
+
+char sumarStr(char *a, char *b) {
+  ... resuelva aca la pregunta 2 ...
+}
