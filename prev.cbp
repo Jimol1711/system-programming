@@ -59,11 +59,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="elim.c">
+		<Unit filename="prev.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="elim.h" />
-		<Unit filename="test-elim.c">
+		<Unit filename="prev.h" />
+		<Unit filename="test-prev.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />

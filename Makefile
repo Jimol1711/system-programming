@@ -3,7 +3,7 @@
 #
 #
 
-PROB=elim
+PROB=prev
 
 SRCS= test-$(PROB).c $(PROB).c
 HDRS= $(PROB).h
