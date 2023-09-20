@@ -3,5 +3,10 @@
 #include "prev.h"
 
 void asignarPrev(Nodo *t, Nodo **pprev) {
-  return;
+  if (t == NULL) {
+      return;
+  }
+  Nodo *prev = *pprev;
+  if (t->izq != NULL)
+    asignarPrev(t->izq, pprev);
 }
