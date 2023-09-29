@@ -1,0 +1,4 @@
+casa:edificación construida para ser habitada                           :
+lluvia:condensación del vapor de agua contenida en las nubes            :
+embarcación:todo tipo de artilugio capaz de navegar sobre o bajo el agua:
+alimento:sustancia ingerida por un ser vivo                             :
