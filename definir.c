@@ -17,7 +17,7 @@ void agregaDefinicion(char *nom_dic, char *pal, char *def) {
 
   // Calculamos tamaño del archivo con fseek y ftell
   fseek(f, 0, SEEK_END);
-  long tam = ftell(f);
+  long size = ftell(f);
 
   // Calculamos el número de líneas
   int lineas = 0;
