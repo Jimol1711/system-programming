@@ -37,11 +37,40 @@ sort:                   # void sort(char *noms[], int n) { // registros a0, a1
     # no puede alterar los registros s0-s11, si lo hace debe resguardarlos
     # en 0(sp), 4(sp), ... o 48(sp)
     # El valor de p esta temporalmente en el registro t0
-    lw      a0,0(t0)    #     int rc= strcmp(p[0], p[1]); // registro t1
-    lw      a1,4(t0)
+    lw a0, 0(t0)
+    lw a1, 4(t0)
+    li a3, 32 # ap1 = p[0];
+
+.buscar_ap1:
+    addi t1, t1, 1
+    lw t2, 0(t1)
+    li t3, 32
+    bne  t2, t3, .buscar_ap1
+    addi t1, t1, 1
+    lw t2,4(t0) # ap2 = p[1];
+
+.buscar_ap2:
+    a2, 0(a1)
+    addi a1, a1, 1
+    bne a2, a3, .buscar_ap2
+
+    addi a0, a0, -1
+
+    lw      a0,t1    #     int rc= strcmp(p[0], p[1]); // registro t1
+    lw      a1,t2
     sw      t0,56(sp)   # resguardar p en memoria antes de llamar a strcmp
     call    strcmp      #     // valor retornado queda en registro a0
                         #     // p ya no esta en el registro t0
+    li t1, 0
+    bne a0, t1, .final_busqueda
+
+    lw      t0, 56(sp)
+    lw      a0,0(t0)    
+    lw      a1,4(t0)
+    sw      t0,56(sp)   
+    call    strcmp      
+
+.final_busqueda:
     mv      t1,a0       #     // Dejar resultado de la comparacion en t1
 
     #################################################
