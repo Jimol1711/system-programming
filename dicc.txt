@@ -1,5 +1,5 @@
                                                                                 
-                                                                                
+lluvia:precipitacion de particulas liquidas de agua                             
                                                                                 
                                                                                 
                                                                                 
@@ -32,15 +32,15 @@ perro:mamifero domestico con olfato muy fino, inteligente y leal
                                                                                 
                                                                                 
                                                                                 
+embarcacion:todo tipo de artilugio capaz de navegar en el agua                  
+                                                                                
+                                                                                
+alimento:sustancia ingerida por un ser vivouedan en el aire                     
                                                                                 
                                                                                 
                                                                                 
-correr:andar tan rapidamente que los pies quedan en el aire                     
                                                                                 
-                                                                                
-                                                                                
-                                                                                
-                                                                                
+casa:edificacion construida para ser habitada                                   
                                                                                 
 bolsillo:bolsa pequena                                                          
                                                                                 

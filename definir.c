@@ -10,8 +10,9 @@ int agregarDefinicion(char *nom_dic, char *pal, char *def) {
   FILE *arch = fopen(nom_dic, "r+");
   char buf[81];
 
+  // Diagnóstico de error con perror, el archivo no existe
   if (arch == NULL) {
-    perror("Error abriendo el archivo");
+    perror("El archivo no existe");
     return 1;
   }
  
@@ -29,8 +30,14 @@ int agregarDefinicion(char *nom_dic, char *pal, char *def) {
   fseek(arch, linea_def * 81, SEEK_SET);
 
   // Buscamos la primera línea vacía con un loop
-  while (fgets(buf, sizeof(buf), arch) != NULL) {
-    if (buf[0] == '\n') {
+  while (fread(buf, 1, 80, arch) > 0) {
+    if (strncmp(buf, pal, strlen(pal)) == 0) {
+      // Diagnóstico de error en el que la llave ya está en el diccionario
+      fprintf(stderr, "La llave %s ya se encuentra en el diccionario", pal);
+      fclose(arch);
+      return 1;
+    }
+    else if (fgetc(arch) == '\n') {
       fseek(arch, -81, SEEK_CUR);
       fputs(pal, arch);
       fputc(':', arch);
@@ -38,26 +45,31 @@ int agregarDefinicion(char *nom_dic, char *pal, char *def) {
       fclose(arch);
       return 0;
     }
-    fseek(arch, 81 - ftell(arch), SEEK_CUR);
   }
 
   // Si se llega al final del archivo en el loop, se sale del while y se vuelve al comienzo
   fseek(arch, 0, SEEK_SET);
 
   // Se repite el proceso
-  while (fgets(buf, sizeof(buf), arch) != NULL) {
-    if (buf[0] == '\n') {
+  while (fread(buf, 1, 80, arch) > 0) {
+    if (strncmp(buf, pal, strlen(pal)) == 0) {
+      // Diagnóstico de error en el que la llave ya está en el diccionario
+      fprintf(stderr, "La llave %s ya se encuentra en el diccionario", pal);
+      fclose(arch);
+      return 1;
+    }
+    else if (fgetc(arch) == '\n') {
       fseek(arch, -81, SEEK_CUR);
       fputs(pal, arch);
       fputc(':', arch);
       fputs(def, arch);
       fclose(arch);
       return 0;
-    } 
-    fseek(arch, 81 - ftell(arch), SEEK_CUR);
+    }
   }
 
   // Si llegamos aquí no se encontró una línea vacía, el archivo está lleno
+  fprintf(stderr, "El diccionario está lleno");
   fclose(arch);
   return 0;
 }
