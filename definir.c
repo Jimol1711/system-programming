@@ -10,48 +10,42 @@ int agregarDefinicion(char *nom_dic, char *pal, char *def) {
   FILE *arch = fopen(nom_dic, "r+");
   char buf[81];
 
-  //Diagnóstico de errores usando perror
-  if (arch == NULL) {
-    perror("La llave %s ya se encuentra en el diccionario");
-    return 0;
-  }
-
   // Calculamos tamaño del archivo con fseek y ftell
   fseek(arch, 0, SEEK_END);
   long size = ftell(arch);
   fseek(arch, 0, SEEK_SET);
 
   // Calculamos el número de líneas
-  int lineas = size / 81;
+  int lineas = size / 80;
 
   // Calculamos donde debe estar la definición con hash
   int linea_def = hash_string(pal) % lineas;
 
   // Nos movemos a esa línea
-  fseek(arch, linea_def * 81, SEEK_SET);
+  fseek(arch, linea_def * 80, SEEK_SET);
 
   // Buscamos la primera línea vacía con un loop
-  while (fgets(buf, 82, arch) != NULL) {
+  while (fgets(buf, sizeof(buf), arch) != NULL) {
     if (buf[0] == '\n') {
-      fseek(arch, -81, SEEK_CUR);
+      fseek(arch, -82, SEEK_CUR);
       fprintf(arch, "%s:%s\n", pal, def);
       fclose(arch);
       return 0;
     }
-    fseek(arch, 81, SEEK_CUR);
   }
 
   fseek(arch, 0, SEEK_SET);
 
-  while (fgets(buf, 81, arch) != NULL) {
+  while (fgets(buf, sizeof(buf), arch) != NULL) {
     if (buf[0] == '\n') {
-      fseek(arch, -81, SEEK_CUR);
+      fseek(arch, -82, SEEK_CUR);
       fprintf(arch, "%s:%s\n", pal, def);
       fclose(arch);
       return 0;
     }
   }
 
+  // Si llegamos aquí no se encontró una línea vacía
   fclose(arch);
   return 0;
 }

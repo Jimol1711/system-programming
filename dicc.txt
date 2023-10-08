@@ -1,5 +1,4 @@
-embarcacion:todo tipo de artilugio capaz de navegar en el agua
-                 
+                                                                                
                                                                                 
                                                                                 
                                                                                 
@@ -32,8 +31,8 @@ taladro:herramienta aguda o cortante con que se agujerea la madera
 perro:mamifero domestico con olfato muy fino, inteligente y leal                
                                                                                 
                                                                                 
-                                                                                
-                                                                                
+                                                                                embarcacion:todo tipo de artilugio capaz de navegar en el agua
+                  
                                                                                 
                                                                                 
 correr:andar tan rapidamente que los pies quedan en el aire                     
