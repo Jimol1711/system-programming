@@ -2,7 +2,7 @@ casa:edificacion construida para ser habitada
 alimento:sustancia ingerida por un ser vivo                                     
 canario:ave paseriforme de la familia de los fringilidos                        
 palacio:edificio utilizado como residencia de un magnate                        
-embarcacion:todo tipo de artilugio capaz de navegar en el agua                  
+consejo:bla blao tipo de artilugio capaz de navegar en el agua                  
 bolsillo:bolsa pequena                                                          
 correr:andar tan rapidamente que los pies quedan en el aire                     
 nadar:trasladarse en el agua, con los brazos y sin tocar el suelo               

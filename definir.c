@@ -7,15 +7,29 @@
 
 int main(int argc, char *argv[]) {
 
+  if (argc != 4) {
+    fprintf(stderr, "Uso: ./definir <diccionario> <llave> <definicion>\n");
+    exit(1);
+  }
+
   char *nom_dic = argv[1];
   char *pal = argv[2];
   char *def = argv[3];
-  int tamPal = strlen(pal);
 
   FILE *arch = fopen(nom_dic, "r+");
   if (arch==NULL) {
     perror(nom_dic);
-    exit(1);
+    exit(2);
+  }
+
+  char buf_[81];
+
+  while(fgets(buf_, strlen(pal)+1, arch)) {
+    if(strcmp(buf_,pal) == 0) {
+      fprintf(stderr, "La llave %s ya se encuentra en el diccionario\n", pal);
+      fclose(arch);
+      return 1;
+    }
   }
 
   fseek(arch, 0, SEEK_END);
@@ -28,40 +42,50 @@ int main(int argc, char *argv[]) {
   fseek(arch, numDef * 81, SEEK_SET);
 
   while(fgets(buf, 81, arch) != NULL) {
-    if(strncmp(buf, pal, tamPal)==0){
-      fprintf(stderr, "La llave %s ya se encuentra en el diccionario", pal);
-      fclose(arch);
-      exit(2);
-    }
     if (buf[0] == '\n') {
       fseek(arch, -81, SEEK_CUR);
-      fputs(pal, arch);
-      fputc(':', arch);
-      fputs(def, arch);
-      fclose(arch);
-      return 0;
-    }
+      if (fgetc(arch) == ' ') {
+        fseek(arch, -1, SEEK_CUR);
+        fputs(pal, arch);
+        fputc(':', arch);
+        fputs(def, arch);
+        fclose(arch);
+        return 0;
+      } else {
+          fseek(arch, 80, SEEK_CUR);
+          fputs(pal, arch);
+          fputc(':', arch);
+          fputs(def, arch);
+          fclose(arch);
+          return 0;
+        }
+      }
   }
 
   fseek(arch, 0, SEEK_SET);
 
   while(fgets(buf, 81, arch) != NULL) {
-    if(strncmp(buf, pal, tamPal)==0){
-      fprintf(stderr, "La llave %s ya se encuentra en el diccionario", pal);
-      fclose(arch);
-      exit(2);
-    }
     if (buf[0] == '\n') {
       fseek(arch, -81, SEEK_CUR);
-      fputs(pal, arch);
-      fputc(':', arch);
-      fputs(def, arch);
-      fclose(arch);
-      return 0;
+      if (fgetc(arch) == ' ') {
+        fseek(arch, -1, SEEK_CUR);
+        fputs(pal, arch);
+        fputc(':', arch);
+        fputs(def, arch);
+        fclose(arch);
+        return 0;
+      } else {
+          fseek(arch, 80, SEEK_CUR);
+          fputs(pal, arch);
+          fputc(':', arch);
+          fputs(def, arch);
+          fclose(arch);
+          return 0;
+        }
     }
   }
 
-  fprintf(stderr, "El diccionario está lleno");
+  fprintf(stderr, "dicc-full.txt: el diccionario está lleno\n");
   fclose(arch);
   return 0;
 
