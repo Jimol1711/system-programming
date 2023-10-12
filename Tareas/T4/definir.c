@@ -24,17 +24,6 @@ int main(int argc, char *argv[]) {
     exit(2);
   }
 
-  // Diagnóstico de error, la llave ya se encuentra definida en el diccionario
-  char buf_[81];
-
-  while(fgets(buf_, strlen(pal)+1, arch)) {
-    if(strcmp(buf_,pal) == 0) {
-      fprintf(stderr, "La llave %s ya se encuentra en el diccionario\n", pal);
-      fclose(arch);
-      return 1;
-    }
-  }
-
   // Se calcula tamaño del diccionario y número de líneas
   fseek(arch, 0, SEEK_END);
   int size = ftell(arch);
@@ -46,9 +35,9 @@ int main(int argc, char *argv[]) {
   char buf[81];
   fseek(arch, numDef * 81, SEEK_SET);
 
-  // Lógica para agregar la definición
-  while(fread(buf,82,1,arch)>0) { // fgets(buf, 81, arch) != NULL
-    if (buf[0] == '\n') {
+  // Lógica para agregar la definición, usando fread
+  while(fread(buf, 81, 1, arch) != 0) {
+    if (buf[0] == ' ') { 
       fseek(arch, -81, SEEK_CUR);
       if (fgetc(arch) == ' ') {
         fseek(arch, -1, SEEK_CUR);
@@ -57,22 +46,21 @@ int main(int argc, char *argv[]) {
         fputs(def, arch);
         fclose(arch);
         return 0;
-      } else {
-          fseek(arch, 80, SEEK_CUR);
-          fputs(pal, arch);
-          fputc(':', arch);
-          fputs(def, arch);
-          fclose(arch);
-          return 0;
-        }
-      }
+      } // Diagnóstico de error, llave ya se encuentra definida
+    } else if (strncmp(buf,pal,strlen(pal)) == 0) {
+      fprintf(stderr, "La llave %s ya se encuentra en el diccionario\n", pal);
+      fclose(arch);
+      return 1;
+    }
   }
+
+  char buf_[81];
 
   // Si se salió del while anterior se llego al final del archivo, por lo que se vuelve al comienzo hasta encontrar línea vacía
   fseek(arch, 0, SEEK_SET);
 
-  while(fread(buf,82,1,arch)>0) {
-    if (buf[0] == '\n') {
+  while(fread(buf_, 81, 1, arch) != 0) {
+    if (buf_[0] == ' ') {
       fseek(arch, -81, SEEK_CUR);
       if (fgetc(arch) == ' ') {
         fseek(arch, -1, SEEK_CUR);
@@ -81,14 +69,11 @@ int main(int argc, char *argv[]) {
         fputs(def, arch);
         fclose(arch);
         return 0;
-      } else {
-          fseek(arch, 80, SEEK_CUR);
-          fputs(pal, arch);
-          fputc(':', arch);
-          fputs(def, arch);
-          fclose(arch);
-          return 0;
-        }
+      }
+    } else if (strncmp(buf,pal,strlen(pal)) == 0) {
+      fprintf(stderr, "La llave %s ya se encuentra en el diccionario\n", pal);
+      fclose(arch);
+      return 1;
     }
   }
 

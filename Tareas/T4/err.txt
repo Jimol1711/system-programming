@@ -1,1 +1,1 @@
-dicc-full.txt: el diccionario está lleno
+La llave consejo ya se encuentra en el diccionario
