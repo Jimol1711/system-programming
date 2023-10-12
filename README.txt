@@ -16,69 +16,118 @@ Para buscar un texto: tecla / seguido del texto (/...texto...)
 
 -----------------------------------------------
 
-Ud. debe programar su solución en el archivo definir.c.
+Instrucciones para la tarea de assembler Risc-V
 
-Debe probar su tarea bajo Debian 11 de 64 bits nativo o virtualizado.
-Queda excluido WSL 1 para hacer las pruebas.  Sí puede usar WSL 2.
-Estos son los requerimientos para aprobar su tarea:
+En la clase auxiliar del viernes 6 de octubre se estudió la solución
+de una tarea similar de un semestre pasado.
 
-+ make run-san debe felicitarlo y no debe reportar ningún problema como
-  por ejemplo memory leaks.
-+ make run-g debe felicitarlo.
-+ make run debe felicitarlo.
+Programe en sort-c-wc.c una función auxiliar que entregue el número de
+palabras en un string.  Haga un esfuerzo en llegar a la función más pequeña,
+porque así será menor la cantidad de líneas en assembler que deberá
+programar y depurar.  Pruebe con:
 
-Invoque el comando make zip para ejecutar todos los tests y generar un
-archivo definir.zip que contiene definir.c, con su solución,
-y resultados.txt, con la salida de make run, make run-g y make run-san.
+  make sort-c-wc.run
 
-Para ejecutar la solución de referencia, ejecute estos comandos:
+Una vez que funcione correctamente, genere el código
+en assembler para el programa sort-c-wc.c con este comando:
 
-ARCH=$(arch)
-bash test-definir.sh prof.ref-$ARCH
+  make sort-c-wc.s
 
-Para depurar use: make ddd
+Estudie cuidadosamente el código de la traducción de la función que calcula
+el número de palabras a assembler Risc-V.  Base su solución en ese código
+para el ordenamiento en assembler.
 
-Recuerde que para ejecutar el programa debe ingresar run en el panel de
-comandos de ddd, especificando los parámetros.  Por ejemplo:
+Modifique la función sort escrita en assembler en el archivo
+sort-rv-wc.s de modo que ordene de acuerdo a lo solicitado.
+Para lograrlo, adapte el código que estudió en sort-c-wc.s.  Recuerde que
+en sort-rv-wc.s solo puede modificar la parte señalada y además
+no puede llamar a otras funciones.
 
-run dicc.txt bolsillo "bolsa pequena"
+Pruebe que el ordenamiento en assembler funciona correctamente ingresando
+este comando en un terminal de Debian:
 
-Video con ejemplos de uso de ddd: https://youtu.be/FtHZy7UkTT4
-Archivos con los ejemplos: https://www.u-cursos.cl/ingenieria/2020/2/CC3301/1/novedades/r/demo-ddd.zip
+   make sort-rv-wc.run   (compila y ejecuta la versión en assembler)
+
+Se exige que las ejecución de make sort-rv-wc.run
+terminen con el mensaje 'Felicitaciones: ...'.  De otra forma
+su tarea será rechazada.
 
 -----------------------------------------------
 
-Nuevo!
+Tips para la depuración
 
-Si prefiere codeblocs, láncelo y abra el archivo definir.cbp.
-Hay 3 perfiles de ejecución para probar su tarea:
-+ Debug (equivale a make run-g)
-+ Sanitize (make run-san)
-+ Release (make run)
+Video con ejemplos de uso de ddd: https://youtu.be/FtHZy7UkTT4
+Archivos con los ejemplos:
+https://www.u-cursos.cl/ingenieria/2020/2/CC3301/1/novedades/r/demo-ddd.zip
 
-Solo prueba para el caso ./definir.bin dicc.txt bolsillo "bolsa pequena"
-Para probar con otros parámetros, en codeblock vaya al menú Project -> Set
-programs' arguments... En la ventana que se abre escribir los parámetros
-en el panel Program arguments.  Por ejemplo: dicc.txt bolsillo "bolsa pequena"
+Le serán utiles estos comandos:
 
-Además cada ejecución de definir modifica el diccionario, por lo que
-necesitará restaurarlo con este comando: cp dicc-ini.txt dicc.txt
+   make sort-rv-wc.ddd   (lanza ddd para depurar sort-rv-wc.s)
 
-Recuerde probar igualmente su tarea con make run-san, make run-g y make run.
+En el momento que aparezca la ventana de ddd, la ejecución ya comenzó
+y se detuvo en la función main.  Continúe la ejecución con el botón
+cont.  La salida del programa se muestra en la ventana del terminal,
+no en la ventana de ddd.  Seleccione el menú View->Machine Code Window
+para ver el assembler.  Coloque breakpoints en lugares estratégico con
+break .while_begin por ejemplo.
+
+Si falla uno de los tests en la versión en assembler, lea atentamente el
+mensaje.  Se le explicará cómo detener la ejecución justo antes de ordenar
+el arreglo que fallará.
+
+*** Solución de problemas ***
+
+Si el programa no termina porque hay un ciclo infinito, detenga la ejecución
+con control-C en el terminal de Debian, no en la ventana de ddd.  No salga de
+ddd porque el programa no ha terminado.  Ejecute con stepi para examinar
+los registros y así diagnosticar el problema.  El programa todavía esta en el
+ciclo infinito.
+
+Es normal que ddd abra una ventana de diálogo para reclamar porque no
+encuentra los fuentes de algunas funciones de biblioteca, como exit.
+Ignore el problema presionando el botón OK y continúe.
+
+Si al lanzar el depurador aparece la ventana de ddd en blanco o en el terminal
+aparece este mensaje:
+
+bind: Address already in use
+qemu: could not open gdbserver on 1234
+
+significa que su última ejecución del programa con ddd no terminó
+adecuadamente.  Deberá matar el proceso (el programa) de la siguiente manera.
+En el terminal de Debian ingrese este comando:
+
+ps aux | grep qemu
+
+Si la salida es:
+
+pss        34660  0.0  0.2 4410944 7976 pts/2    Sl   15:40   0:00 qemu-riscv32 -g 1234 sort-c-wc
+pss        34682  0.0  0.0   6252   636 pts/3    S+   15:46   0:00 grep qemu
+
+el identificador del proceso que no terminó adecuadamente es 34660.  Mate
+el proceso con este comando:
+
+kill -9 34660
+
+Ahora podrá lanzar ddd nuevamente.
 
 -----------------------------------------------
 
 Entrega de la tarea
 
-Ejecute: make zip
+En un terminal ejecute el comando:
 
-Entregue por U-cursos el archivo definir.zip
+  make zip      (crea wc.zip que contiene sort-c-wc.c,
+                 sort-rv-wc.s y resultados.txt, con la ejecución
+                 de su tarea)
 
-A continuación es muy importante que descargue de U-cursos el mismo
-archivo que subió, luego descargue nuevamente los archivos adjuntos y
-vuelva a probar la tarea tal cual como la entregó.  Esto es para
-evitar que Ud. reciba un 1.0 en su tarea porque entregó los archivos
-equivocados.  Créame, sucede a menudo por ahorrarse esta verificación.
+Entregue por U-cursos el archivo wc.zip
+
+Recuerde descargar de u-cursos lo que entregó, descargar nuevamente los
+archivos adjuntos y vuelva a probar la tarea tal cual como la entregó.
+Esto es para evitar que Ud. reciba un 1.0 en su tarea porque entregó
+los archivos equivocados.  Créame, sucede a menudo por ahorrarse esta
+verificacion.  Su tarea debe ordenar correctamente, si no será rechazada.
 
 -----------------------------------------------
 
@@ -101,10 +150,12 @@ A veces es útil usar make con la opción -n para que solo muestre
 exactamente qué comandos va a ejecutar, sin ejecutarlos de verdad.
 Por ejemplo:
 
-   make -n ddd
+   make -n sort-rv-wc.ddd
 
 También es útil usar make con la opción -B para forzar la recompilación
 de los fuentes a pesar de que no han cambiado desde la última compilación.
 Por ejemplo:
 
-   make -B run
+   make -B sort-rv-wc
+
+Recompilará para generar el archivo sort-rv-wc desde cero

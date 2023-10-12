@@ -1,77 +1,84 @@
-# Para revisar las opciones de compilacion y ejecucion,
-# ingrese en el terminal el comando: make
-#
-#
+# Si desea agregar un programa con archivos test-ejemplo.c, ejemplo.c y
+# ejemplo.h, agregue un par de reglas que digan:
+# test-ejemplo.o ejemplo.o: ejemplo.h
+# test-ejemplo: test-ejemplo.o ejemplo.o
 
-PROB=definir
+PROB=wc
 
-SRCS= $(PROB).c pss.c
-HDRS= pss.h
+RISCV = /opt/riscv
+TARGET = riscv64-unknown-elf
+CC = ${RISCV}/bin/${TARGET}-gcc
+CXX = ${RISCV}/bin/${TARGET}-g++
+AS = ${RISCV}/bin/${TARGET}-as
+LD = ${RISCV}/bin/${TARGET}-ld
+STRIP = ${RISCV}/bin/${TARGET}-strip
+GDB = ${RISCV}/bin/${TARGET}-gdb
+PK = ${RISCV}/${TARGET}/bin/pk
+DUMP= ${RISCV}/${TARGET}/bin/objdump
+QEMU32=qemu-riscv32
 
 SHELL=bash -o pipefail
-
-INCLUDE=
-CFLAGS=-Wall -Werror -pedantic -std=c18 -Wno-unused-function $(INCLUDE)
-LDLIBS=-lm
-ARCH=$(shell arch)
-
 MAK=make --no-print-directory
+
+COMFLAGS= -Wall -pedantic -std=c2x -march=rv32im -mabi=ilp32
+
+CFLAGS= -g ${COMFLAGS}
+LDFLAGS= -g
+LDLIBS=
 
 readme:
 	@less README.txt
 
-$(PROB).bin $(PROB).bin-g $(PROB).bin-san: $(SRCS) $(HDRS)
+sort-rv-$(PROB): test-sort.o sort-rv-$(PROB).o
 
-run-san: $(PROB).bin-san
-	@if grep -P '\t' $(PROB).c ; then echo "Su archivo $(PROB).c contiene tabs" ; echo "Reemplacelos por espacios en blanco con el comando expand!" ; echo "No olvide revisar su indentacion"; false ; else true; fi
-	bash test-$(PROB).sh $(PROB).bin-san
+sort-c-$(PROB): test-sort.o sort-c-$(PROB).o
 
-run-g: $(PROB).bin-g
-	bash test-$(PROB).sh $(PROB).bin-g
+sort-rv: test-sort.o sort-rv.o
 
-prof.ref: $(PROB).bin
-	cp $(PROB).bin prof.ref-$(ARCH)
-	strip prof.ref-$(ARCH)
-
-run: $(PROB).bin
-	bash test-$(PROB).sh $(PROB).bin
-
-ddd: $(PROB).ddd
-
-ddd-san: $(PROB).ddd-san
+sort-c: test-sort.o sort-c.o
 
 zip:
-	@if grep -P '\t' $(PROB).c ; then echo "Su archivo $(PROB).c contiene tabs.  Reemplacelos por espacios en blanco!" ; false ; else true; fi
+	@if grep -P '\t' sort-c-$(PROB).c ; then echo "Su archivo sort-c-$(PROB).c contiene tabs.  Use el comando expand para reemplazarlos por espacios en blanco!" ; false ; else true; fi
 	@rm -f resultados.txt $(PROB).zip
 	@echo "Sistema operativo utilizado" > resultados.txt
 	@uname -a >> resultados.txt
 	@cat resultados.txt
-	@echo ==== run-san ==== | tee -a resultados.txt
-	@$(MAK) -B run-san | tee -a resultados.txt
-	@echo ==== run-g ==== | tee -a resultados.txt
-	@$(MAK) -B run-g | tee -a resultados.txt
-	@echo ==== run ==== | tee -a resultados.txt
-	@$(MAK) -B run | tee -a resultados.txt
+	@echo ==== make sort-c-$(PROB).run ==== | tee -a resultados.txt
+	@$(MAK) -B sort-c-$(PROB).run | tee -a resultados.txt
+	@echo ==== make sort-rv-$(PROB).run ==== | tee -a resultados.txt
+	@$(MAK) -B sort-rv-$(PROB).run | tee -a resultados.txt
 	@echo ==== zip ====
-	zip -r $(PROB).zip resultados.txt $(PROB).c
+	zip -r $(PROB).zip resultados.txt sort-c-$(PROB).c sort-rv-$(PROB).s
 	@echo "Entregue por u-cursos el archivo $(PROB).zip"
-	@echo "Descargue de u-cursos lo que entrego, descomprimalo y revise"
-	@echo "que esta su ultima version de $(PROB).c"
+	@echo "Descargue de u-cursos lo que entrego, descargue nuevamente los"
+	@echo "archivos adjuntos y vuelva a probar la tarea tal cual como"
+	@echo "la entrego.  Esto es para evitar que Ud. reciba un 1.0 en su"
+	@echo "tarea porque entrego los archivos equivocados.  Creame, sucede"
+	@echo "a menudo por ahorrarse esta verificacion."
 
-%.bin: %.c
-	gcc -O -DOPT=1 $(CFLAGS) $(SRCS) $(LDLIBS) -o $@
-
-%.bin-g: %.c
-	gcc -g $(CFLAGS) $(SRCS) $(LDLIBS) -o $@
-
-%.bin-san: %.c
-	gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined $(CFLAGS) $(SRCS) $(LDLIBS) -o $@
-
-%.ddd: %.bin-g
-	ddd $(*F).bin-g &
-
-%.ddd-san: %.bin-san
-	ddd $(*F).bin-san &
 
 clean:
-	rm -rf *.o *.log *.bin* core $(PROB).zip resultados.txt bin obj err-ref.txt err.txt raw-std-ref.txt raw-std.txt std-ref.txt std.txt
+	rm -f *.o $(PROB) sort-rv sort-rv-$(PROB) sort-c sort-c-$(PROB) core \
+                  resultados.txt $(PROB).zip
+
+%.o: %.c
+	${CC} -g -c ${COMFLAGS} $< -o $@
+
+%.s: %.c
+	${CC} -O -S ${COMFLAGS} $<
+
+%.ddd: %
+	qemu-riscv32 -g 1234 $(*F) &
+	ddd --debugger ${GDB} --command target.gdb $(*F)
+
+%.o: %.s
+	${CC} -c ${COMFLAGS} $< -o $@
+
+%: %.o
+	${CC} ${COMFLAGS} ${LDFLAGS} $^ ${LDLIBS} -o $@
+
+%.run: %
+	qemu-riscv32 $(*F)
+
+%.dump: %
+	${DUMP} -S $(*F) | less

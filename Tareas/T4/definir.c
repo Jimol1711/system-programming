@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
   fseek(arch, numDef * 81, SEEK_SET);
 
   // Lógica para agregar la definición
-  while(fgets(buf, 81, arch) != NULL) {
+  while(fread(buf,82,1,arch)>0) { // fgets(buf, 81, arch) != NULL
     if (buf[0] == '\n') {
       fseek(arch, -81, SEEK_CUR);
       if (fgetc(arch) == ' ') {
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
   // Si se salió del while anterior se llego al final del archivo, por lo que se vuelve al comienzo hasta encontrar línea vacía
   fseek(arch, 0, SEEK_SET);
 
-  while(fgets(buf, 81, arch) != NULL) {
+  while(fread(buf,82,1,arch)>0) {
     if (buf[0] == '\n') {
       fseek(arch, -81, SEEK_CUR);
       if (fgetc(arch) == ' ') {
