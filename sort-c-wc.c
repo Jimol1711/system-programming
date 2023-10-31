@@ -1,24 +1,21 @@
 #include <string.h>
 
-int strCmp(char *s1, char *s2) {
-    char c1;
-    char c2;
-
-    for (;;) {
-      c1= *s1;
-      c2= *s2;
-
-      if (c1==0)
-        break;
-
-      if (c1!=c2)
-        break;
-
-      s1++;
-      s2++;
+// Función auxiliar que cuenta las palabras en un string
+int contarPalabras(char *str) {
+  int cont = 0;
+  int hayPal = 0;
+  while(*str) {
+    if (*str != ' ') {
+      if (!hayPal) {
+        cont++;
+        hayPal = 1;
+      }
+    } else {
+      hayPal = 0;
     }
-
-    return c1 - c2;
+    str++;
+  }
+  return cont;
 }
 
 void sort(char **a, int n) {
@@ -26,9 +23,10 @@ void sort(char **a, int n) {
   char **p= a;
   while (p<ult) {
 
-    int t1= strCmp(p[0], p[1]);
+    int t1= contarPalabras(p[0]);
+    int t2= contarPalabras(p[1]);
 
-    if (t1 <= 0)
+    if (t1 <= t2)
       p++;
     else {
       char *tmp= p[0];
