@@ -23,10 +23,12 @@ void sort(char **a, int n) {
   char **p= a;
   while (p<ult) {
 
-    int t1= contarPalabras(p[0]);
-    int t2= contarPalabras(p[1]);
+    int t2= contarPalabras(p[0]);
+    int t3= contarPalabras(p[1]);
 
-    if (t1 <= t2)
+    int t1 = t2 - t3;
+
+    if (t1 <= 0)
       p++;
     else {
       char *tmp= p[0];
