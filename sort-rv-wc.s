@@ -36,18 +36,27 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     ### Comienza el codigo que Ud. debe modificar ###
     #################################################
 
-    # no puede alterar los registros s0-s11, si lo hace debe resguardarlos
-    # en 0(sp), 4(sp), ... o 44(sp)
-    # El valor de p esta temporalmente en el registro t0
-    # No puede hacer mas trabajo que la comparacion (no puede usar ret)
-    lw      a0,0(t0)    #     int rc= strcmp(p[0], p[1]); // registro t1
-    lw      a1,4(t0)
-    call    strcmp      #     // valor retornado queda en registro a0
-                        #     // p ya no esta en el registro t0
-    mv      t1,a0       #     // Dejar resultado de la comparacion en t1
+    lw      a0,0(t0) 
+    li      a1,32   # a1 es el caracter ' ', 32 en ASCII
+    mv      a2,zero # Contador inicial es 0, se pone en a2
 
-    # En el registro t1 debe quedar la conclusion de la comparacion:
-    # si t1<=0 p[0] y p[1] estan en orden y no se intercambiaran.
+.conteo_palabras_iteracion:
+    lbu     t2,0(a0)                          # Primer byte leído
+    beq     zero,t2,.conteo_palabras_hecho    # Si es 0 se termina el conteo
+    beq     a1,t2,.conteo_palabras_salto      # Si es ' ', se avanza un caracter
+
+    beq     a1,t1,.conteo_palabras_incremento
+    mv      t1,a1                             # Se actualiza el caracter
+
+.conteo_palabras_incremento:
+    addi    a2,a2,1                           # Se aumenta el Contador
+
+.conteo_palabras_salto:
+    addi    a0,a0,1                           # Se avanza un caracter y se sigue iterando
+    j       .conteo_palabras_iteracion
+
+.conteo_palabras_hecho:
+    mv      t1,a2                             # Conteo listo, se asigna su valor a t1
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###
