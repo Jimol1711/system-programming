@@ -36,27 +36,48 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     ### Comienza el codigo que Ud. debe modificar ###
     #################################################
 
-    lw      a0,0(t0) 
-    li      a1,32   # a1 es el caracter ' ', 32 en ASCII
-    mv      a2,zero # Contador inicial es 0, se pone en a2
+    lw      a0,0(t0)
+    li      a1,32
+    mv      a2,zero
 
-.conteo_palabras_iteracion:
-    lbu     t2,0(a0)                          # Primer byte leído
-    beq     zero,t2,.conteo_palabras_hecho    # Si es 0 se termina el conteo
-    beq     a1,t2,.conteo_palabras_salto      # Si es ' ', se avanza un caracter
+.word_count_loop_first:
+    lbu     t2,0(a0)
+    beq    zero,t2,.word_count_done_first
+    beq     a1,t2,.word_count_skip_first
 
-    beq     a1,t1,.conteo_palabras_incremento
-    mv      t1,a1                             # Se actualiza el caracter
+    beq     a1,t1,.word_count_increment_first
+    mv      t1,a1
 
-.conteo_palabras_incremento:
-    addi    a2,a2,1                           # Se aumenta el Contador
+.word_count_increment_first:
+    addi    a2,a2,1
 
-.conteo_palabras_salto:
-    addi    a0,a0,1                           # Se avanza un caracter y se sigue iterando
-    j       .conteo_palabras_iteracion
+.word_count_skip_first: 
+    addi    a0,a0,1
+    j       .word_count_loop_first
 
-.conteo_palabras_hecho:
-    mv      t1,a2                             # Conteo listo, se asigna su valor a t1
+.word_count_done_first:
+    mv      t1,a2
+
+    lw      a0,4(t0)
+    mv      a2,zero
+
+.word_count_loop_second:
+    lbu     t2,0(a0)
+    beq     zero,t2,.word_count_done_second
+    beq     a1,t2,.word_count_skip_second
+
+    beq     a1,t1,.word_count_increment_second
+    mv      t1,a1
+
+.word_count_increment_second:
+    addi    a2,a2,1
+
+.word_count_skip_second:
+    addi    a0,a0,1 
+    j       .word_count_loop_second
+
+.word_count_done_second:
+    sub     t1,t1,a2
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###
