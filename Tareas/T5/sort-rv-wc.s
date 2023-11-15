@@ -37,47 +37,58 @@ sort:                   # void sort(uint nums[], int n) { // registros a0, a1
     #################################################
 
     lw      a0,0(t0)
-    li      a1,32
-    mv      a2,zero
+    lw      a1,4(t0)
 
-.word_count_loop_first:
-    lbu     t2,0(a0)
-    beq    zero,t2,.word_count_done_first
-    beq     a1,t2,.word_count_skip_first
+contarPalabras:
+	lbu	    a5,0(a0)
+	beq	    a5,zero,.L8
+	li	    a4,0
+	li	    a6,0
+	li	    a3,32
+	li	    a2,0
+	li	    a7,1
+	j	    .L4
+.L9:
+	mv	    a4,a2
+.L3:
+	addi	a0,a0,1
+	lbu	    a5,0(a0)
+	beq	    a5,zero,.L2
+.L4:
+	beq	    a5,a3,.L9
+	bne	    a4,zero,.L3
+	addi	a6,a6,1
+	mv	    a4,a7
+	j	    .L3
+.L8:
+	li	    a6,0
+.L2:
+	lbu	    a5,0(a1)
+	beq	    a5,zero,.L10
+	li	    a4,0
+	li	    a2,0
+	li	    a3,32
+	li	    a0,0
+	li	    a7,1
+	j	    .L7
+.L11:
+	mv	    a4,a0
+.L6:
+	addi	a1,a1,1
+	lbu	    a5,0(a1)
+	beq	    a5,zero,.L5
+.L7:
+	beq	    a5,a3,.L11
+	bne	    a4,zero,.L6
+	addi	a2,a2,1
+	mv	    a4,a7
+	j	    .L6
+.L10:
+	li	    a2,0
+.L5:
+	sub	    a0,a6,a2
 
-    beq     a1,t1,.word_count_increment_first
-    mv      t1,a1
-
-.word_count_increment_first:
-    addi    a2,a2,1
-
-.word_count_skip_first: 
-    addi    a0,a0,1
-    j       .word_count_loop_first
-
-.word_count_done_first:
-    mv      t1,a2
-
-    lw      a0,4(t0)
-    mv      a2,zero
-
-.word_count_loop_second:
-    lbu     t2,0(a0)
-    beq     zero,t2,.word_count_done_second
-    beq     a1,t2,.word_count_skip_second
-
-    beq     a1,t1,.word_count_increment_second
-    mv      t1,a1
-
-.word_count_increment_second:
-    addi    a2,a2,1
-
-.word_count_skip_second:
-    addi    a0,a0,1 
-    j       .word_count_loop_second
-
-.word_count_done_second:
-    sub     t1,t1,a2
+    mv      t1,a0
 
     #################################################
     ### Fin del codigo que Ud. debe modificar     ###
