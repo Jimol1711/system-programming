@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
   int size = ftell(arch);
   int numLineas = size / 81;
 
-  // Se calcula línea a poner la definción con hash y se mueve el cursos a esa línea
+  // Se calcula línea a poner la definción con hash y se mueve el cursor a esa línea
   int numDef = hash_string(pal) % numLineas;
 
   char buf[81];
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
         fclose(arch);
         return 0;
       }
-    } else if (strncmp(buf,pal,strlen(pal)) == 0) {
+    } else if (strncmp(buf_,pal,strlen(pal)) == 0) {
       fprintf(stderr, "La llave %s ya se encuentra en el diccionario\n", pal);
       fclose(arch);
       return 1;
@@ -78,8 +78,7 @@ int main(int argc, char *argv[]) {
   }
 
   // No se encontró línea vacía. Diagnóstico de error, el diccionario está lleno
-  fprintf(stderr, "dicc-full.txt: el diccionario está lleno\n");
+  fprintf(stderr, "dicc-full.txt: el diccionario esta lleno\n");
   fclose(arch);
   return 0;
-
 }
