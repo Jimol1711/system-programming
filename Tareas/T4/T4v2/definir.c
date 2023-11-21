@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
   }
 
   // No se encontró línea vacía. Diagnóstico de error, el diccionario está lleno
-  fprintf(stderr, "dicc-full.txt: el tamaño del archivo no es multiplo del tamaño de la linea\n");
+  fprintf(stderr, "dicc-full.txt: el diccionario esta lleno\n");
   fclose(arch);
   return 1;
 }

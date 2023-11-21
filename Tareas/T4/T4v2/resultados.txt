@@ -38,7 +38,7 @@ Bien.  Se diagnostico correctamente el error.
 -----------------------------------------------------------
 Test de definir con un diccionario completamente lleno
 Ejecutando: ./definir.bin-san dicc-full.txt consejo "bla bla"
-La llave consejo ya se encuentra en el diccionario
+dicc-full.txt: el diccionario esta lleno
 Bien.  Se diagnostico correctamente el error.
 
 Felicitaciones: aprobo todos los tests
@@ -80,7 +80,7 @@ Bien.  Se diagnostico correctamente el error.
 -----------------------------------------------------------
 Test de definir con un diccionario completamente lleno
 Ejecutando: ./definir.bin-g dicc-full.txt consejo "bla bla"
-La llave consejo ya se encuentra en el diccionario
+dicc-full.txt: el diccionario esta lleno
 Bien.  Se diagnostico correctamente el error.
 
 Felicitaciones: aprobo todos los tests
@@ -122,7 +122,7 @@ Bien.  Se diagnostico correctamente el error.
 -----------------------------------------------------------
 Test de definir con un diccionario completamente lleno
 Ejecutando: ./definir.bin dicc-full.txt consejo "bla bla"
-La llave consejo ya se encuentra en el diccionario
+dicc-full.txt: el diccionario esta lleno
 Bien.  Se diagnostico correctamente el error.
 
 Felicitaciones: aprobo todos los tests
