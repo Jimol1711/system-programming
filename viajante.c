@@ -32,4 +32,55 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   // Despues de invocar fork() agregue: srandom(getUSecsOfDay()*getpid());
   // Esto es para que cada proceso genere secuencias de numeros aleatorios
   // diferentes.
+
+  // N° de permutaciones que hace cada hijo
+  int npermh = nperm / p;
+  // pids de los hijos
+  int pids[p];
+  // file descriptors de lectura
+  int infds[p];
+  // menor distancia hasta el momento
+  double min = DBL_MAX;
+
+  for(int i=0; i<p; i++) {
+    int fds[2];
+    pipe(fds);
+    pid_t pid = fork();
+    if(pid == 0) {
+      pids[i] = pid;
+      close(fds[0]);
+      // Heurística
+      int minh;
+      for(int i=0; i<=npermh; i++) {
+        int x[(n+1)/p];
+        srandom(getUSecsOfDay()*getpid());
+        gen_ruta_alea(x,((n+1)/p)-1);
+        double d = dist(x, ((n+1)/p)-1, m);
+        if (d<min) {
+          minh = d;
+          for(int j=0; j<=((n+1)/p)-1; j++) {
+            zh[j] = x[j];
+          }
+        }
+      }
+      write(fds[1],&minh,sizeof(double));
+      exit(1);
+    } else {
+      close(fds[1]);
+      infds[i] = fds[0];
+      pids[i] = pid;
+    }
+  }
+
+  // Se entierra a los hijos
+  for(int i=0; i<p; i++) {
+    double res;
+    leer(infds[i],&res,sizeof(double));
+    close(infds[i]);
+    waitpid(pids[i],NULL,0);
+    if(res != 0) {
+      min = res;
+    }
+  }
+  return min;
 }
