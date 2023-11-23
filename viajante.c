@@ -49,7 +49,9 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
     if(pid == 0) {
       pids[i] = pid;
       close(fds[0]);
+      
       // Heurística
+# if 0
       int minh;
       for(int i=0; i<=npermh; i++) {
         int x[(n+1)/p];
@@ -59,10 +61,11 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
         if (d<min) {
           minh = d;
           for(int j=0; j<=((n+1)/p)-1; j++) {
-            zh[j] = x[j];
+            z[j] = x[j];
           }
         }
       }
+#endif
       write(fds[1],&minh,sizeof(double));
       exit(1);
     } else {
