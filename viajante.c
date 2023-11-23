@@ -43,30 +43,17 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   double min = DBL_MAX;
 
   for(int i=0; i<p; i++) {
-    int fds[2];
+    int fds[p][2];
+    int zh[p];
     pipe(fds);
     pid_t pid = fork();
     if(pid == 0) {
       pids[i] = pid;
-      close(fds[0]);
+      close(fds[i][0]);
       
       // Heurística
-# if 0
-      int minh;
-      for(int i=0; i<=npermh; i++) {
-        int x[(n+1)/p];
-        srandom(getUSecsOfDay()*getpid());
-        gen_ruta_alea(x,((n+1)/p)-1);
-        double d = dist(x, ((n+1)/p)-1, m);
-        if (d<min) {
-          minh = d;
-          for(int j=0; j<=((n+1)/p)-1; j++) {
-            z[j] = x[j];
-          }
-        }
-      }
-#endif
-      write(fds[1],&minh,sizeof(double));
+      int minh = viajante(zh,n/p,m, npermh);
+      write(fds[i][1],&zh,sizeof(double));
       exit(1);
     } else {
       close(fds[1]);
