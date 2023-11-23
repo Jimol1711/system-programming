@@ -38,26 +38,24 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   // pids de los hijos
   int pids[p];
   // file descriptors de lectura
-  int infds[p];
+  int infds[p][2];
   // menor distancia hasta el momento
   double min = DBL_MAX;
 
   for(int i=0; i<p; i++) {
-    int fds[p][2];
-    int zh[p];
-    pipe(fds);
+    int *zh = malloc((n + 1) * sizeof(int));
+    pipe(infds[i]);
     pid_t pid = fork();
+
     if(pid == 0) {
-      pids[i] = pid;
-      close(fds[i][0]);
-      
+      close(infds[i][0]);
       // Heurística
-      int minh = viajante(zh,n/p,m, npermh);
-      write(fds[i][1],&zh,sizeof(double));
-      exit(1);
+      double minh = viajante(zh, n, m, npermh);
+      write(infds[i][1], &minh, sizeof(double));
+      free(zh);
+      exit(0);
     } else {
-      close(fds[1]);
-      infds[i] = fds[0];
+      close(infds[i][1]);
       pids[i] = pid;
     }
   }
@@ -65,10 +63,10 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   // Se entierra a los hijos
   for(int i=0; i<p; i++) {
     double res;
-    leer(infds[i],&res,sizeof(double));
-    close(infds[i]);
+    leer(infds[i][0], &res, sizeof(double));
+    close(infds[i][0]);
     waitpid(pids[i],NULL,0);
-    if(res != 0) {
+    if(res < min) {
       min = res;
     }
   }
