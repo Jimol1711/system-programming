@@ -1,0 +1,704 @@
+Sistema operativo utilizado
+Linux debian11mate 5.10.0-26-amd64 #1 SMP Debian 5.10.197-1 (2023-09-29) x86_64 GNU/Linux
+==== run-san ====
+gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-viajante.c viajante.c -lm -o viajante.bin-san
+./viajante.bin-san
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.136977
+0 29 21 5 6 15 28 16 26 13 2 22 31 10 14 23 18 32 3 11 19 20 24 17 1 9 27 7 30 8 4 12 25 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.080953
+0 11 31 1 21 17 13 14 3 15 2 4 25 9 6 27 24 5 29 20 12 16 30 19 28 8 22 32 7 10 26 23 18 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.625802
+0 18 32 3 11 27 6 21 17 13 14 26 10 20 9 23 30 22 19 8 29 4 16 12 28 25 31 2 7 1 5 24 15 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.822484
+0 22 20 9 27 14 13 21 6 5 24 1 19 8 31 16 29 28 23 32 10 12 2 25 7 26 3 11 17 4 15 30 18 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.197139
+0 23 11 26 17 19 8 30 18 32 21 13 3 27 6 5 10 2 16 28 22 15 25 12 4 9 29 20 1 24 31 7 14 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.377445
+0 18 9 17 27 8 7 28 29 21 6 23 19 10 20 15 12 25 31 2 30 16 3 32 11 22 4 5 1 24 14 26 13 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.594860
+0 30 10 4 28 26 5 21 17 9 24 27 20 13 14 18 16 23 15 2 19 8 12 31 25 22 1 6 7 29 11 32 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.931561
+0 12 30 10 32 19 8 2 11 4 31 25 16 3 26 1 15 22 28 18 29 13 14 23 17 27 6 24 20 7 9 5 21 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=12.032844
+0 18 26 17 29 20 27 1 32 22 21 9 10 12 4 3 14 13 11 19 25 31 28 7 15 30 2 8 16 24 6 5 23 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.611727
+0 19 10 31 16 3 7 32 8 25 2 22 30 18 29 27 24 20 5 6 21 17 13 14 26 9 1 28 11 23 15 4 12 0
+Tiempo=13238
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultado final: Tiempo=5300 speedup=2.497736 distancia minima=10.594860
+0 30 10 4 28 26 5 21 17 9 24 27 20 13 14 18 16 23 15 2 19 8 12 31 25 22 1 6 7 29 11 32 3 0
+Test 2 aprobado: speedup >= 1.5x
+
+Felicitaciones: su tarea funciona
+==== run-g ====
+gcc -g -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-viajante.c viajante.c -lm -o viajante.bin-g
+./viajante.bin-g
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.629791
+0 32 6 12 29 30 13 2 5 31 21 23 26 25 9 7 11 22 4 3 14 8 19 17 24 1 28 18 20 16 10 27 15 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.242486
+0 18 24 10 1 19 27 15 20 4 32 17 6 29 8 12 30 16 11 5 23 7 25 28 26 22 21 9 31 13 3 2 14 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.505352
+0 8 14 10 30 2 27 29 32 15 24 21 18 11 7 25 23 26 16 5 22 6 28 4 12 9 20 19 17 1 13 31 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.378794
+0 27 11 14 4 21 23 25 2 30 3 13 18 31 24 1 8 29 12 15 10 32 20 17 19 22 5 9 16 26 7 6 28 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.567255
+0 10 15 9 32 17 6 24 26 12 19 22 5 1 27 14 3 30 13 2 31 18 7 28 4 20 11 21 16 23 25 8 29 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.474854
+0 29 30 14 18 16 5 25 7 22 24 10 8 32 26 17 6 4 28 2 27 15 3 13 23 12 19 11 21 9 31 20 1 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=11.577234
+0 28 22 16 31 23 26 11 17 6 19 24 1 12 21 25 18 2 9 7 4 10 30 20 15 32 3 13 5 14 27 29 8 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.697417
+0 1 19 14 31 18 25 21 9 8 29 27 2 13 3 30 20 24 10 6 15 12 4 22 5 11 7 23 17 26 16 28 32 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=10.619677
+0 29 3 13 31 16 7 9 18 2 24 28 11 26 22 5 21 4 20 14 32 27 19 25 23 1 30 10 12 17 6 8 15 0
+Tiempo=4384
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultado final: Tiempo=2392 speedup=1.832776 distancia minima=11.242486
+0 18 24 10 1 19 27 15 20 4 32 17 6 29 8 12 30 16 11 5 23 7 25 28 26 22 21 9 31 13 3 2 14 0
+Test 2 aprobado: speedup >= 1.5x
+
+Felicitaciones: su tarea funciona
+==== run ====
+gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-viajante.c viajante.c -lm -o viajante.bin
+./viajante.bin
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultados viajante: nperm=2000000 min=2.175692
+0 1 2 4 5 3 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=9.976871
+0 20 9 8 12 26 19 29 2 28 31 27 14 25 10 16 13 17 15 4 30 3 21 24 5 6 1 23 11 22 7 32 18 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=9.790424
+0 32 25 8 21 30 24 15 1 14 29 9 16 4 6 22 12 31 18 20 23 11 19 26 5 10 3 13 27 17 2 28 7 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.334683
+0 22 12 4 10 15 29 27 25 16 20 23 1 2 13 21 3 9 17 24 5 6 32 28 18 31 30 8 7 14 26 19 11 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=9.786621
+0 16 17 24 10 3 21 9 25 8 14 12 32 27 30 26 22 23 7 29 2 20 11 28 4 13 15 5 18 1 31 6 19 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.443836
+0 11 26 22 32 12 16 4 10 24 7 17 5 31 19 27 25 6 3 21 14 9 15 13 30 8 18 29 1 20 28 23 2 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=9.721760
+0 23 28 27 13 30 3 21 4 14 11 12 31 20 19 6 9 8 25 32 7 26 22 18 2 1 16 5 17 15 24 10 29 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultados viajante: nperm=1250000 min=10.469657
+0 7 20 23 14 16 10 13 21 30 2 19 8 4 5 15 24 3 1 29 31 32 6 25 26 12 9 17 22 11 28 18 27 0
+Test 1: ejemplo con solo 6 ciudades
+Calculando secuencialmente
+Resultados viajante: nperm=8000000 min=2.175692
+0 1 2 4 5 3 0
+Calculando en paralelo
+Resultado final: nperm=8000000 distancia minima=2.175692
+0 1 2 4 5 3 0
+Test 1 aprobado
+
+--------------------------------------------------
+
+Test 2: Un ejemplo grande con 33 ciudades
+Precalentando secuencialmente
+Resultados viajante: nperm=100000 min=11.046008
+0 19 22 1 11 25 27 23 7 20 28 31 5 16 18 2 14 29 3 21 17 13 8 10 15 30 24 6 26 32 12 4 9 0
+Calculando secuencialmente con 10000000 permutaciones
+Resultados viajante: nperm=10000000 min=9.907930
+0 22 31 25 6 19 11 18 14 28 5 13 3 24 17 30 21 10 4 9 29 15 1 16 2 26 8 27 32 12 7 20 23 0
+Tiempo=3265
+
+-----
+Calculando en paralelo con 10000000 permutaciones, intento 1
+Resultado final: Tiempo=1405 speedup=2.323843 distancia minima=9.721760
+0 23 28 27 13 30 3 21 4 14 11 12 31 20 19 6 9 8 25 32 7 26 22 18 2 1 16 5 17 15 24 10 29 0
+Test 2 aprobado: speedup >= 1.5x
+
+Felicitaciones: su tarea funciona
