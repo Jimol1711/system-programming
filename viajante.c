@@ -41,18 +41,16 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   int fds[p][2];
   // menor distancia hasta el momento
   double min = DBL_MAX;
-  // arreglo que guarda las rutas
 
   for(int i=0; i<p; i++) {
     pipe(fds[i]);
     pid_t pid = fork();
     int ruta[n+1];
-    double min_hijo = DBL_MAX;
 
     if(pid == 0) {
       close(fds[i][0]);
       srandom(getUSecsOfDay()*getpid());
-      int minh = viajante(ruta, n, m, npermh);
+      viajante(ruta, n, m, npermh);
       write(fds[i][1], &ruta, sizeof(ruta));
       exit(0);
     } else {
@@ -67,6 +65,7 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
       if(minp < min) {
         min = minp;
       }
+      z[i] = res[i];
     }
   }
   return min;
