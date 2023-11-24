@@ -37,38 +37,38 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   int npermh = nperm / p;
   // pids de los hijos
   int pids[p];
-  // file descriptors de lectura
-  int infds[p][2];
+  // file descriptors
+  int fds[p][2];
   // menor distancia hasta el momento
   double min = DBL_MAX;
 
   for(int i=0; i<p; i++) {
-    int *zh = malloc((n + 1) * sizeof(int));
-    pipe(infds[i]);
+    //int *zh = malloc((n/p + 1) * sizeof(int));
+    pipe(fds[i]);
     pid_t pid = fork();
 
     if(pid == 0) {
-      close(infds[i][0]);
-      // Heurística
-      double minh = viajante(zh, n, m, npermh);
-      write(infds[i][1], &minh, sizeof(double));
-      free(zh);
+      close(fds[i][0]);
+      srandom(getUSecsOfDay()*getpid());
+      double minh = viajante(z, n, m, npermh);
+      write(fds[i][1], &minh, sizeof(double));
+      //free(zh);
       exit(0);
     } else {
-      close(infds[i][1]);
+      close(fds[i][1]);
       pids[i] = pid;
+      }
     }
-  }
 
-  // Se entierra a los hijos
-  for(int i=0; i<p; i++) {
-    double res;
-    leer(infds[i][0], &res, sizeof(double));
-    close(infds[i][0]);
-    waitpid(pids[i],NULL,0);
-    if(res < min) {
-      min = res;
+    for(int i=0; i<p; i++) {
+      double res;
+      leer(fds[i][0], &res, sizeof(double));
+      close(fds[i][0]);
+      waitpid(pids[i], NULL, 0);
+      if(res < min) {
+        min = res;
+      }
     }
-  }
+  
   return min;
 }
