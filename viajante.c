@@ -41,34 +41,33 @@ double viajante_par(int z[], int n, double **m, int nperm, int p) {
   int fds[p][2];
   // menor distancia hasta el momento
   double min = DBL_MAX;
+  // arreglo que guarda las rutas
 
   for(int i=0; i<p; i++) {
-    //int *zh = malloc((n/p + 1) * sizeof(int));
     pipe(fds[i]);
     pid_t pid = fork();
+    int ruta[n+1];
+    double min_hijo = DBL_MAX;
 
     if(pid == 0) {
       close(fds[i][0]);
       srandom(getUSecsOfDay()*getpid());
-      double minh = viajante(z, n, m, npermh);
-      write(fds[i][1], &minh, sizeof(double));
-      //free(zh);
+      int minh = viajante(ruta, n, m, npermh);
+      write(fds[i][1], &ruta, sizeof(ruta));
       exit(0);
     } else {
       close(fds[i][1]);
       pids[i] = pid;
-      }
-    }
-
-    for(int i=0; i<p; i++) {
-      double res;
-      leer(fds[i][0], &res, sizeof(double));
+      int res[n+1];
+      leer(fds[i][0], &res, sizeof(res));
+      srandom(getUSecsOfDay()*getpid());
+      double minp = viajante(res, n, m, nperm);
       close(fds[i][0]);
       waitpid(pids[i], NULL, 0);
-      if(res < min) {
-        min = res;
+      if(minp < min) {
+        min = minp;
       }
     }
-  
+  }
   return min;
 }
