@@ -1,1 +1,0 @@
-Archivo test-elim-rango.c es de tipo desconocido

@@ -23,7 +23,8 @@ Queue *queue;
 int queueSize;
 FileInfo **fileArray;
 
-void recorrerDir(char *nom, Queue *archsQueue) {
+// Función que recorre en profundidad y guarda en la cola
+void recorrerDir(char *nom) {
   struct stat st_nom;
   stat(nom, &st_nom);
   
@@ -45,13 +46,18 @@ void recorrerDir(char *nom, Queue *archsQueue) {
       if (strcmp(entry->d_name, ".")==0 || strcmp(entry->d_name, "..")==0) {
         continue;
       }
-      recorrerDir(entry->d_name,queue);
+      char *fullPath = malloc(strlen(nom) + strlen(entry->d_name) + 2);
+      strcpy(fullPath, nom);
+      strcat(fullPath, "/");
+      strcat(fullPath, entry->d_name);
+      recorrerDir(fullPath);
+      free(fullPath);
     }
     closedir(dir);
   } else {
     // Podria ser un dispositivo, un link simbolico, etc.
     fprintf(stderr, "Archivo %s es de tipo desconocido\n", nom);
-    exit(0);
+    exit(1);
   }
 }
 
@@ -61,7 +67,13 @@ int compareFileSize(void *ptr, int a, int b) {
   FileInfo *fileB = ((FileInfo **)ptr)[b];
 
   // Comparar por tamaño de archivo
-  return (int)(fileB->size - fileA->size);
+  if (fileA->size != fileB->size) {
+    // Si los tamaños son diferentes, compara por tamaño
+    return (int)(fileB->size - fileA->size);
+  } else {
+    // Si los tamaños son iguales, compara lexicográficamente
+    return strcmp(fileA->filename, fileB->filename);
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -72,7 +84,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  recorrerDir(argv[1],queue);
+  recorrerDir(argv[1]);
 
   // Tamanno de la cola
   queueSize = queueLength(queue);
@@ -89,8 +101,14 @@ int main(int argc, char *argv[]) {
   sortPtrArray(fileArray, 0, queueSize - 1, compareFileSize);
 
   // Mostrar los n archivos más grandes
-  for (int i = 0; i < atoi(argv[2]); ++i) {
+  for (int i = 0; i < atoi(argv[2]) && i < queueSize; ++i) {
       printf("%s %ld\n", fileArray[i]->filename, fileArray[i]->size);
+  }
+
+  // Liberación de memoria
+  for (int i = 0; i < queueSize; ++i) {
+    free(fileArray[i]->filename);
+    free(fileArray[i]);
   }
 
   free(fileArray);
