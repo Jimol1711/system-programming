@@ -1,0 +1,24 @@
+#define _DEFAULT_SOURCE 1
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#include "volumen.h"
+
+// Importante
+// Al inicio de cada hijo Ud. debe cambiar la semilla usada
+// para generar los numeros aleatorios.  Esto se logra invocando esta
+// funcion:
+//          srandom(getUSecsOfDay()*getpid());
+// Si no lo hace, todos los procesos hijos generaran los mismos puntos,
+// con lo que la precision lograda sera la misma que con n/p puntos.
+// La función srandom hace que los hijos generen puntos distintos.
+
+double volumen(double (*f)(double x, double y),
+    double xi, double xf, double yi, double yf,
+    int n, int p) {
+  ...
+}

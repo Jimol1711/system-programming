@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#include "dividir.h"
+
+void dividir(Nodo *nodo, Nodo **pimpares, Nodo **ppares) {
+  ...
+}
